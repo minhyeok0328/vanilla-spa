@@ -4,7 +4,7 @@ import SignUp from '../views/SignUp.js';
 
 const routes = {
   '/': Home,
-  '/404': NotFound,
+  // '/404': NotFound,
   '/signup': SignUp,
 };
 

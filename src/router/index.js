@@ -1,4 +1,5 @@
 import routes from './routes.js';
+import { observe } from '../hooks/useHooks.js';
 
 let element = null;
 
@@ -7,13 +8,13 @@ const findRoute = (selectPath) => (
 );
 
 const routing = () => {
-  console.log('routing')
   const selectPath = window.location.hash.replace('#/', '');
   let selectComponent = null;
   selectComponent = Object.values(routes)[findRoute(selectPath)];
 
   if (selectComponent) {
-    element.innerHTML = selectComponent();
+    selectComponent?.setup();
+    element.innerHTML = selectComponent.render();
 
     const onMounted = new Event('onMounted');
     document.dispatchEvent(onMounted);

@@ -1,0 +1,20 @@
+header {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+  > nav {
+    display: flex;
+    justify-content: space-between;
+    > div {
+      cursor: pointer;
+    }
+    > ul {
+      display: flex;
+      text-align: right;
+      > li {
+        padding: 0 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}

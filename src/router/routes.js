@@ -1,10 +1,10 @@
-import Home from '../views/Home.js';
-import NotFound from '../views/404.js';
-import SignUp from '../views/SignUp.js';
+import { Home } from '@/views/Home';
+import { SignUp } from '@/views/SignUp';
+import { NotFound } from '@/views/NotFound';
 
 const routes = {
   '/': Home,
-  // '/404': NotFound,
+  '/404': NotFound,
   '/signup': SignUp,
 };
 

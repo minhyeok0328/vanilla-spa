@@ -1,17 +1,22 @@
-import { setupRouter } from './router/index.js';
+import { Component } from '@/core/Component';
+import router from '@/router';
 
-export default function App({ element }) {
-  setupRouter();
-
-  element.innerHTML = `
-    <header>
-      <ul>
-        <li data-href="/">Home</li>
-        <li data-href="/signup">SignUp</li>
-        <li data-href="/sdgf">SignIn</li>
-      </ul>
-    </header>
-    <section id="content"></section>
-    <footer>Footer</footer>
-  `;
+export class App extends Component {
+  onMounted() {
+    router.start();
+  }
+  template() {
+    return `
+      <header>
+        <nav>
+          <div data-href="/">Home</div>
+          <ul>
+            <li data-href="/signup">SignUp</li>
+            <li>SignIn</li>
+          </ul>
+        </nav>
+      </header>
+      <section id="content"></section>
+    `;
+  }
 }

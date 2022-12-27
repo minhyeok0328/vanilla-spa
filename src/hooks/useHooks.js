@@ -12,7 +12,6 @@ export function observe(fn) {
 const targetMap = new WeakMap();
 export function reactive(initialState = {}) {
   const track = (target, key) => {
-    console.log('track', target, key);
     if (!currentObserve) return;
 
     let depsMap = targetMap.get(target);
@@ -20,14 +19,12 @@ export function reactive(initialState = {}) {
 
     let dep = depsMap.get(key);
     if (!dep) depsMap.set(key, (dep = new Set()));
-    console.log('track', depsMap);
 
     if (!dep.has(currentObserve)) dep.add(currentObserve);
   };
 
   const trigger = (target, key) => {
     const depsMap = targetMap.get(target);
-    console.log('trigger', target, key, depsMap);
     if (!depsMap) return;
 
     const dep = depsMap.get(key);
@@ -38,14 +35,12 @@ export function reactive(initialState = {}) {
     initialState,
     {
       get(target, key, receiver) {
-        console.log('get');
         const response = Reflect.get(target, key, receiver);
         track(target, key);
-        
+
         return response;
       },
       set(target, key, value, receiver) {
-        console.log('set');
         const oldValue = target[key];
         const response = Reflect.set(target, key, value, receiver);
 

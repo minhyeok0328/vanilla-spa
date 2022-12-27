@@ -1,10 +1,12 @@
+const baseURL = 'http://localhost:3000';
+
 export class Http {
   #baseURL;
   #timeout;
   
-  constructor() {
-    this.#baseURL = 'http://localhost:3000';
-    this.#timeout = 1000;
+  constructor(basePath, timeout = 5000) {
+    this.#baseURL = `${baseURL}${basePath}`;
+    this.#timeout = timeout;
   }
 
   async get(path, params) {
@@ -14,6 +16,22 @@ export class Http {
 
     const response = await Promise.race([
       fetch(`${this.#baseURL}${path}${queryString}`),
+      new Promise((resolve) => setTimeout(() => resolve(false), this.#timeout)),
+    ]);
+
+    if (!response) throw new Error('Timeout');
+    return result.json();
+  }
+
+  async post(path, body) {
+    const response = await Promise.race([
+      fetch(path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body),
+      }),
       new Promise((resolve) => setTimeout(() => resolve(false), this.#timeout)),
     ]);
 

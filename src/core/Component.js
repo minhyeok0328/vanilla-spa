@@ -27,14 +27,22 @@ export class Component {
     const selectList = [...document.querySelectorAll(selector)];
     
     if (selectList.length > 1) {
-      selectList.forEach((item) => item.addEventListner(eventType, callback, option));
+      selectList.forEach((item) => item.addEventListener(eventType, callback, option));
       return;
     }
-
+    
     const selectItem = selectList.pop();
     if (!selectItem) return;
 
-    selectItem.addEventListner(eventType, callback, option);
+    selectItem.addEventListener(eventType, callback, option);
+  }
+
+  selector(selector) {
+    return document.querySelector(selector);
+  }
+  
+  selectorAll() {
+    return document.querySelectorAll(selector);
   }
 
   render() {

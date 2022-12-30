@@ -11,8 +11,8 @@ export class Http {
 
   async get(path, params) {
     const queryString = Object.keys(params).map((key, index) => (`
-      ${!index ? '?' : '&'}${key}=${obj[key]}
-    `)).join('');
+      ${!index ? '?' : '&'}${key}=${params[key]}
+    `)).join('').trim();
 
     const response = await Promise.race([
       fetch(`${this.#baseURL}${path}${queryString}`),
@@ -20,12 +20,12 @@ export class Http {
     ]);
 
     if (!response) throw new Error('Timeout');
-    return result.json();
+    return response.json();
   }
 
   async post(path, body) {
     const response = await Promise.race([
-      fetch(path, {
+      fetch(`${this.#baseURL}${path}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -36,6 +36,6 @@ export class Http {
     ]);
 
     if (!response) throw new Error('Timeout');
-    return result.json();
+    return response
   }
 }

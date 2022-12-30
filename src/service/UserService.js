@@ -11,17 +11,26 @@ export class UserService {
     const isEmail = this.validator.isEmail(email, '이메일 형식이 올바르지 않습니다.');
     const isPassword = this.validator.isPassword(password, '비밀번호는 영문, 숫자 포함 8자리 이상이여야 합니다.');
 
-    if (isEmail) {
+    if (isEmail !== true) {
       alert(isEmail);
       return;
     }
 
-    if (!isPassword) {
+    if (isPassword !== true) {
       alert(isPassword);
       return;
     }
 
-    await this.http.post('/user', {
+    const isDuplicatedId = await this.http.get('', {
+      email,
+    });
+
+    if (isDuplicatedId.length) {
+      alert('중복된 이메일 입니다.');
+      return;
+    }
+
+    await this.http.post('', {
       email,
       password,
       registerDate: new Date(),

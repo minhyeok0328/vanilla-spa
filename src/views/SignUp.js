@@ -1,6 +1,6 @@
 import { Component } from '@/core/Component';
 import { UserService } from '@/service/UserService';
-
+import router from '@/router';
 export class SignUp extends Component {
   setup() {
     this.userService = new UserService();
@@ -14,8 +14,11 @@ export class SignUp extends Component {
     const email = this.selector('[name="email"]').value;
     const password = this.selector('[name="password"]').value;
 
-    const response = await this.userService.signUp({ email, password });
-    console.log(response);
+    const success = await this.userService.signUp({ email, password });
+    if (success) {
+      alert('회원가입이 완료되었습니다.');
+      router.push('/');
+    }
   }
   template() {
     return `

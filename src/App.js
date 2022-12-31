@@ -12,7 +12,7 @@ export class App extends Component {
           <div data-href="/">Home</div>
           <ul>
             <li data-href="/signup">SignUp</li>
-            <li>SignIn</li>
+            <li data-href="/signin">SignIn</li>
           </ul>
         </nav>
       </header>
